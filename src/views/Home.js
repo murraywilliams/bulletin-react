@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { fetchPosts } from '../actions';
 
 class Home extends Component {
+  componentWillMount () {
+    this.props.fetchData()
+  }
   render() {
     return (
       <div>
@@ -13,7 +17,12 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  posts: state.getPosts
+  posts: state.receivePosts
 })
 
-export default connect(mapStateToProps)(Home);
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+  fetchData: () => dispatch(fetchPosts())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
